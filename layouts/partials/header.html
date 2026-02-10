@@ -48,4 +48,48 @@
             nav.classList.remove('active');
         }
     });
+    // Featured Carousel Scroll
+    function scrollFeatured(direction) {
+        const carousel = document.getElementById('featuredCarousel');
+        const scrollAmount = 350;
+
+        if (direction === 'left') {
+            carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else {
+            carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    }
+
+    // Tools Carousel Scroll
+    function scrollTools(direction) {
+        const carousel = document.getElementById('toolsCarousel');
+        const scrollAmount = 200;
+
+        if (direction === 'left') {
+            carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else {
+            carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    }
+
+    // Scroll Animation Observer
+    document.addEventListener('DOMContentLoaded', () => {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(section => {
+            observer.observe(section);
+        });
+    });
 </script>

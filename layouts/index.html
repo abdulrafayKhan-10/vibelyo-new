@@ -1,17 +1,22 @@
 {{ define "main" }}
 <div class="homepage">
-    <!-- Hero Section - Clean and Concise -->
+    <!-- Hero Section - Enhanced Modern Design -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
                 <h1>{{ .Title }}</h1>
-                {{ .Content }}
+                <div class="hero-text">
+                    {{ .Content }}
+                </div>
+                <div class="hero-cta">
+                    <a href="#categories" class="read-more-btn">Start Learning ↓</a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Categories Grid - Bento Style -->
-    <section class="categories-section">
+    <section class="categories-section" id="categories">
         <div class="container">
             <h2 class="section-title">Explore Our Categories</h2>
             <div class="categories-grid">
@@ -68,10 +73,86 @@
         </div>
     </section>
 
-    <!-- Recent Posts Section -->
-    <section class="recent-posts">
+    <!-- Featured Guides Section (Horizontal Scroll) -->
+    <section class="featured-section animate-on-scroll">
         <div class="container">
-            <h2 class="section-title">Recent Articles</h2>
+            <h2 class="section-title">Featured Guides</h2>
+            <div class="featured-wrapper">
+                <button class="scroll-btn left" aria-label="Scroll left" onclick="scrollFeatured('left')">←</button>
+                <div class="featured-carousel" id="featuredCarousel">
+                    {{ range first 5 (where .Site.RegularPages "Params.featured" true) }}
+                    <article class="featured-card">
+                        <a href="{{ .Permalink }}" class="post-card-link">
+                            <span class="post-category">{{ .Section | humanize }}</span>
+                            <h3>{{ .Title }}</h3>
+                            <span class="read-more-arrow">→</span>
+                        </a>
+                    </article>
+                    {{ else }}
+                    <!-- Fallback -->
+                    {{ range first 5 .Site.RegularPages }}
+                    <article class="featured-card">
+                        <a href="{{ .Permalink }}" class="post-card-link">
+                            <span class="post-category">{{ .Section | humanize }}</span>
+                            <h3>{{ .Title }}</h3>
+                            <span class="read-more-arrow">→</span>
+                        </a>
+                    </article>
+                    {{ end }}
+                    {{ end }}
+                </div>
+                <button class="scroll-btn right" aria-label="Scroll right" onclick="scrollFeatured('right')">→</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted Tools Section (Horizontal Scroll) -->
+    <section class="tools-section animate-on-scroll">
+        <div class="container">
+            <h2 class="section-title">Trusted Tools</h2>
+            <div class="featured-wrapper">
+                <button class="scroll-btn left" aria-label="Scroll left" onclick="scrollTools('left')">←</button>
+                <div class="featured-carousel" id="toolsCarousel">
+                    <div class="tool-card">
+                        <div class="tool-icon">🤖</div>
+                        <h4>ChatGPT</h4>
+                        <p>AI Writing</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">🎨</div>
+                        <h4>Canva</h4>
+                        <p>Design</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">💼</div>
+                        <h4>Upwork</h4>
+                        <p>Freelancing</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">📝</div>
+                        <h4>Notion</h4>
+                        <p>Planning</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">🔍</div>
+                        <h4>Semrush</h4>
+                        <p>SEO Tools</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">📧</div>
+                        <h4>ConvertKit</h4>
+                        <p>Email Marketing</p>
+                    </div>
+                </div>
+                <button class="scroll-btn right" aria-label="Scroll right" onclick="scrollTools('right')">→</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Posts Section (Renamed to Trending/Latest) -->
+    <section class="recent-posts animate-on-scroll">
+        <div class="container">
+            <h2 class="section-title">Trending Topics</h2>
             <div class="posts-grid">
                 {{ range first 6 (where .Site.RegularPages "Type" "in" (slice "online-earning" "freelancing" "blogging"
                 "ai-tools" "digital-skills")) }}
