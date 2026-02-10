@@ -1,0 +1,90 @@
+{{ define "main" }}
+<div class="homepage">
+    <!-- Hero Section - Clean and Concise -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>{{ .Title }}</h1>
+                {{ .Content }}
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Grid - Bento Style -->
+    <section class="categories-section">
+        <div class="container">
+            <h2 class="section-title">Explore Our Categories</h2>
+            <div class="categories-grid">
+                <!-- Online Earning -->
+                <div class="category-card">
+                    <div class="category-icon">
+                        <img src="/icons/coins.svg" alt="Online Earning" />
+                    </div>
+                    <h3><a href="/online-earning/">Online Earning</a></h3>
+                    <p>Discover legitimate ways to make money online with proven strategies and actionable guidance.</p>
+                    <a href="/online-earning/" class="category-link">Explore Guides</a>
+                </div>
+
+                <!-- Freelancing -->
+                <div class="category-card">
+                    <div class="category-icon">
+                        <img src="/icons/briefcase-business.svg" alt="Freelancing" />
+                    </div>
+                    <h3><a href="/freelancing/">Freelancing</a></h3>
+                    <p>Start and grow your freelance career with expert guidance and practical tips.</p>
+                    <a href="/freelancing/" class="category-link">Start Learning</a>
+                </div>
+
+                <!-- Blogging -->
+                <div class="category-card">
+                    <div class="category-icon">
+                        <img src="/icons/square-pen.svg" alt="Blogging" />
+                    </div>
+                    <h3><a href="/blogging/">Blogging</a></h3>
+                    <p>Master blogging from setup to monetization with comprehensive guides.</p>
+                    <a href="/blogging/" class="category-link">Learn More</a>
+                </div>
+
+                <!-- AI Tools -->
+                <div class="category-card">
+                    <div class="category-icon">
+                        <img src="/icons/sparkles.svg" alt="AI Tools" />
+                    </div>
+                    <h3><a href="/ai-tools/">AI Tools</a></h3>
+                    <p>Leverage AI tools to boost productivity, creativity, and achieve more in less time.</p>
+                    <a href="/ai-tools/" class="category-link">Discover Tools</a>
+                </div>
+
+                <!-- Digital Skills -->
+                <div class="category-card">
+                    <div class="category-icon">
+                        <img src="/icons/trending-up.svg" alt="Digital Skills" />
+                    </div>
+                    <h3><a href="/digital-skills/">Digital Skills</a></h3>
+                    <p>Build essential skills for the digital economy and stay ahead in today's competitive market.</p>
+                    <a href="/digital-skills/" class="category-link">Build Skills</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Posts Section -->
+    <section class="recent-posts">
+        <div class="container">
+            <h2 class="section-title">Recent Articles</h2>
+            <div class="posts-grid">
+                {{ range first 6 (where .Site.RegularPages "Type" "in" (slice "online-earning" "freelancing" "blogging"
+                "ai-tools" "digital-skills")) }}
+                <article class="post-card">
+                    <a href="{{ .Permalink }}" class="post-card-link">
+                        <span class="post-category">{{ .Section | humanize }}</span>
+                        <h3>{{ .Title }}</h3>
+                        <span class="read-more-arrow">→</span>
+                    </a>
+                </article>
+                {{ end }}
+            </div>
+        </div>
+    </section>
+</div>
+{{ end }}

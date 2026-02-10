@@ -1,0 +1,24 @@
+{
+  "enabled": false,
+  "ollama_api_url": "http://localhost:11434",
+  "model": "llama3",
+  "temperature": 0.7,
+  "top_p": 0.9,
+  "rate_limit_seconds": 30,
+  "categories": [
+    "online-earning",
+    "freelancing",
+    "blogging",
+    "ai-tools",
+    "digital-skills"
+  ],
+  "safety_notes": [
+    "ALWAYS review generated content before publishing",
+    "NEVER auto-publish AI-generated content",
+    "Add your unique perspective and expertise",
+    "Verify facts and statistics",
+    "Ensure content provides genuine value",
+    "Respect rate limits to avoid abuse",
+    "Use ethically and responsibly"
+  ]
+}

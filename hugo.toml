@@ -1,0 +1,131 @@
+# Hugo Configuration for Vibelyo.site
+# Educational blogging platform optimized for Google AdSense
+
+baseURL = "https://vibelyo.site/"
+languageCode = "en-us"
+title = "Vibelyo - Learn Online Earning, Freelancing & Digital Skills"
+# Using custom theme in layouts/ directory
+
+
+# SEO and metadata
+[params]
+  description = "Learn practical skills for online earning, freelancing, blogging, AI tools, and digital success. Beginner-friendly guides and tutorials."
+  author = "Abdul Rafay Khan"
+  keywords = "online earning, freelancing, blogging, AI tools, digital skills, make money online"
+  
+  # Social media and contact
+  email = "rafaykhan.biz@gmail.com"
+  
+  # AdSense optimization
+  showReadingTime = true
+  showWordCount = false
+  showRelatedPosts = true
+  postsPerPage = 10
+
+# Menu configuration - appears in navigation
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+  
+  [[menu.main]]
+    name = "Online Earning"
+    url = "/online-earning/"
+    weight = 2
+  
+  [[menu.main]]
+    name = "Freelancing"
+    url = "/freelancing/"
+    weight = 3
+  
+  [[menu.main]]
+    name = "Blogging"
+    url = "/blogging/"
+    weight = 4
+  
+  [[menu.main]]
+    name = "AI Tools"
+    url = "/ai-tools/"
+    weight = 5
+  
+  [[menu.main]]
+    name = "Digital Skills"
+    url = "/digital-skills/"
+    weight = 6
+  
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 7
+  
+  [[menu.main]]
+    name = "Contact"
+    url = "/contact/"
+    weight = 8
+
+# Footer menu for legal pages
+  [[menu.footer]]
+    name = "Privacy Policy"
+    url = "/privacy-policy/"
+    weight = 1
+  
+  [[menu.footer]]
+    name = "Disclaimer"
+    url = "/disclaimer/"
+    weight = 2
+  
+  [[menu.footer]]
+    name = "Terms & Conditions"
+    url = "/terms/"
+    weight = 3
+
+
+# Taxonomies - organize content by categories and tags
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+# Permalink structure - clean URLs for SEO
+[permalinks]
+  posts = "/:section/:slug/"
+
+# Markup configuration
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = false  # Security: don't allow raw HTML in markdown
+  
+  [markup.highlight]
+    style = "monokai"
+    lineNos = false
+    tabWidth = 2
+
+# Output formats
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+
+# RSS configuration
+[outputFormats]
+  [outputFormats.RSS]
+    mediatype = "application/rss+xml"
+    baseName = "feed"
+
+# Build configuration
+[build]
+  writeStats = false
+  
+# Privacy configuration (GDPR compliance)
+[privacy]
+  [privacy.googleAnalytics]
+    anonymizeIP = true
+    respectDoNotTrack = true
+  
+  [privacy.youtube]
+    privacyEnhanced = true
+
+# Security headers
+[security]
+  [security.funcs]
+    getenv = ["^HUGO_"]

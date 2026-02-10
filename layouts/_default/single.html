@@ -1,0 +1,71 @@
+{{ define "main" }}
+<article class="single-post">
+    <div class="container">
+        <!-- Article Header -->
+        <header class="article-header">
+            <h1 class="article-title">{{ .Title }}</h1>
+
+            <div class="article-meta">
+                {{ if .Section }}
+                <span class="article-category">
+                    <a href="/{{ .Section }}/">{{ .Section | humanize }}</a>
+                </span>
+                {{ end }}
+
+                <time datetime="{{ .Date.Format "2006-01-02" }}">
+                    {{ .Date.Format "January 2, 2006" }}
+                </time>
+
+                {{ if .Params.showReadingTime }}
+                <span class="reading-time">{{ .ReadingTime }} min read</span>
+                {{ end }}
+            </div>
+        </header>
+
+        <!-- Article Content -->
+        <div class="article-content">
+            {{ .Content }}
+        </div>
+
+        <!-- Tags -->
+        {{ if .Params.tags }}
+        <div class="article-tags">
+            <h3>Related Topics:</h3>
+            <ul class="tags-list">
+                {{ range .Params.tags }}
+                <li><a href="/tags/{{ . | urlize }}/">{{ . }}</a></li>
+                {{ end }}
+            </ul>
+        </div>
+        {{ end }}
+
+        <!-- Related Posts -->
+        {{ $related := .Site.RegularPages.Related . | first 3 }}
+        {{ if $related }}
+        <section class="related-posts">
+            <h2>Related Articles</h2>
+            <div class="related-posts-grid">
+                {{ range $related }}
+                <article class="related-post-card">
+                    <p class="related-post-meta">
+                        <span class="post-category">{{ .Section | humanize }}</span>
+                        {{ if .Params.showReadingTime }}
+                        <span>{{ .ReadingTime }} min read</span>
+                        {{ end }}
+                    </p>
+                    <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+                </article>
+                {{ end }}
+            </div>
+        </section>
+        {{ end }}
+
+        <!-- Navigation to Category -->
+        <div class="post-navigation">
+            {{ if .Section }}
+            <a href="/{{ .Section }}/" class="back-to-category">← Back to {{ .Section | humanize }}</a>
+            {{ end }}
+        </div>
+    </div>
+</article>
+{{ end }}

@@ -1,0 +1,29 @@
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-content">
+            <!-- Footer Navigation -->
+            <nav class="footer-navigation">
+                <ul class="footer-menu">
+                    {{ range .Site.Menus.footer }}
+                    <li class="footer-item">
+                        <a href="{{ .URL }}" class="footer-link">{{ .Name }}</a>
+                    </li>
+                    {{ end }}
+                </ul>
+            </nav>
+
+            <!-- Copyright -->
+            <div class="footer-copyright">
+                <p>&copy; {{ now.Year }} Vibelyo. All rights reserved.</p>
+                <p class="footer-tagline">Empowering Your Digital Success</p>
+            </div>
+
+            <!-- Social Links (Optional - Add when available) -->
+            <!-- <div class="footer-social">
+                <a href="#" aria-label="Facebook">FB</a>
+                <a href="#" aria-label="Twitter">TW</a>
+                <a href="#" aria-label="LinkedIn">LI</a>
+            </div> -->
+        </div>
+    </div>
+</footer>
