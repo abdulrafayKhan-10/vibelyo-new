@@ -1421,10 +1421,526 @@ a:hover {
     }
 }
 
-/* Focus styles for accessibility */
-a:focus-visible,
-button:focus-visible {
-    outline: 3px solid var(--accent-color);
-    outline-offset: 2px;
-    border-radius: 4px;
+/* === Category Page Layout === */
+.category-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+}
+
+@media (min-width: 992px) {
+    .category-layout {
+        grid-template-columns: 2fr 1fr;
+        align-items: start;
+    }
+}
+
+/* Sidebar Styles */
+.category-sidebar {
+    position: sticky;
+    top: var(--spacing-2xl);
+}
+
+.sidebar-widget {
+    background: white;
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: var(--spacing-xl);
+}
+
+.sidebar-widget h3 {
+    font-size: 1.25rem;
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--bg-lighter);
+}
+
+.sidebar-posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.sidebar-post {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sidebar-post a {
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--transition-base);
+}
+
+.sidebar-post a:hover h4 {
+    color: var(--primary-color);
+}
+
+.sidebar-post h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.4;
+    color: var(--text-color);
+}
+
+.sidebar-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* === Category Content Sections === */
+.category-quick-start {
+    background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
+    border-left: 5px solid var(--accent-color);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-2xl);
+    box-shadow: var(--shadow-sm);
+}
+
+.category-quick-start h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+
+.category-quick-start p {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Removed .category-featured styles */
+
+.category-faq h3 {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--bg-lighter);
+    padding-bottom: var(--spacing-xs);
+    display: inline-block;
+}
+
+/* Dictionary: Reusing .featured-carousel styles for category-featured is sufficient */
+
+/* FAQ Section */
+.category-faq {
+    margin-top: var(--spacing-3xl);
+    border-top: 1px solid var(--border-color);
+    padding-top: var(--spacing-xl);
+}
+
+.faq-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.faq-item {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    transition: all var(--transition-base);
+}
+
+.faq-item:hover {
+    box-shadow: var(--shadow-sm);
+    border-color: var(--primary-light);
+}
+
+.faq-item summary {
+    padding: var(--spacing-md);
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-color);
+    list-style: none;
+    /* Hide default triangle */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: '+';
+    font-weight: bold;
+    color: var(--primary-color);
+    transition: transform 0.2s;
+}
+
+.faq-item[open] summary::after {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    padding: 0 var(--spacing-md) var(--spacing-md);
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    border-top: 1px solid var(--border-light);
+    margin-top: 0;
+}
+
+/* === Fix: Missing Category Styles === */
+
+/* Post Grid (2 Columns) */
+.posts-grid-category {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+    /* Reduced gap */
+    margin-bottom: var(--spacing-2xl);
+}
+
+@media (min-width: 768px) {
+    .posts-grid-category {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Post Card Design */
+.post-summary-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    transition: all var(--transition-base);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-summary-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+
+.post-link-wrapper {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+.post-summary-content {
+    padding: var(--spacing-md);
+    /* Reduced padding */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.post-summary-card h2 {
+    font-size: 1.1rem;
+    /* Reduced font size */
+    margin-top: 0;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-color);
+    line-height: 1.4;
+    font-weight: 700;
+}
+
+.post-summary-card .post-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: var(--spacing-xs);
+    /* Reduced margin */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.post-summary-card .post-excerpt {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: var(--spacing-md);
+    flex-grow: 1;
+    line-height: 1.5;
+}
+
+.read-more-text {
+    font-size: 0.85rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: auto;
+    /* Push to bottom */
+}
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-2xl);
+    padding-top: var(--spacing-xl);
+    border-top: 1px solid var(--border-light);
+}
+
+.pagination-link {
+    padding: 8px 16px;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: all var(--transition-base);
+}
+
+.pagination-link:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Sidebar FAQ Design */
+.sidebar-widget.faq-widget {
+    background: white;
+    /* Changed from bg-lighter to white */
+    border: 1px solid var(--border-color);
+    /* Restore border */
+}
+
+/* Remove internal borders if inside a white widget? Maybe keep dividers. */
+.faq-list-sidebar {
+    display: flex;
+    flex-direction: column;
+    /* gap: 1px removed for continuous border look */
+}
+
+.faq-item-sidebar {
+    background: white;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.faq-item-sidebar:last-child {
+    border-bottom: none;
+}
+
+.faq-item-sidebar summary {
+    padding: 12px 0;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    list-style: none;
+    position: relative;
+    padding-right: 24px;
+}
+
+.faq-item-sidebar summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item-sidebar summary::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    transition: transform 0.2s;
+}
+
+.faq-item-sidebar[open] summary {
+    color: var(--primary-color);
+}
+
+.faq-item-sidebar[open] summary::after {
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.faq-answer-sidebar {
+    padding-bottom: 12px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* === Static Page Layout (About/Contact) === */
+.static-page {
+    padding-top: 0;
+    /* Reset padding, header handles it */
+    padding-bottom: var(--spacing-2xl);
+    width: 100%;
+}
+
+/* Global Page Header (Used by List and Page) */
+.page-header {
+    width: 100%;
+    background: var(--bg-light);
+    /* Full width background */
+    padding-top: 140px;
+    /* Clear fixed nav */
+    padding-bottom: var(--spacing-2xl);
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* Specific Override for Category Pages (Big Rounded Banner) */
+.category-banner {
+    width: auto;
+    /* Not full width */
+    max-width: var(--max-width);
+    margin: 2.5rem auto 3rem auto;
+    /* Reduced gap - header is sticky */
+    background: var(--bg-light);
+    /* Keep background */
+    border-radius: var(--border-radius-lg);
+    /* Rounded corners */
+    padding: 3rem 2rem;
+    /* Big padding inside */
+    padding-top: 3rem;
+    /* Reset top padding (don't need 140px inside) */
+    border: 1px solid var(--border-color);
+    /* Subtle border */
+    box-shadow: var(--shadow-sm);
+}
+
+.category-banner .container {
+    padding: 0;
+    /* Remove container padding inside banner */
+}
+
+.page-title {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    margin-bottom: var(--spacing-md);
+    color: var(--text-color);
+    position: relative;
+    display: inline-block;
+    padding-bottom: var(--spacing-md);
+}
+
+.page-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--gradient-hero);
+    border-radius: 2px;
+}
+
+.page-description {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    padding: 0 var(--spacing-md);
+}
+
+.page-content {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-color);
+    margin-bottom: var(--spacing-3xl);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Left align content headings as requested */
+.page-content h2 {
+    font-size: 1.75rem;
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
+    color: var(--text-color);
+    text-align: left;
+    /* Left aligned, "Right" way */
+    font-weight: 700;
+}
+
+.page-content p {
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Make content look better aligned */
+.page-content ul,
+.page-content ol {
+    margin-left: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Social Icons Section */
+.page-social {
+    text-align: center;
+    padding-top: var(--spacing-2xl);
+    border-top: 1px solid var(--border-light);
+    margin-top: var(--spacing-3xl);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-social h3 {
+    font-size: 1.25rem;
+    /* Reduced size */
+    margin-bottom: var(--spacing-xl);
+    color: var(--text-color);
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    /* Explicit gap value to ensure spacing */
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    /* Slightly smaller icons */
+    height: 48px;
+    border-radius: 50%;
+    color: white;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+}
+
+.social-icon:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.social-icon.twitter {
+    background: #1DA1F2;
+}
+
+.social-icon.linkedin {
+    background: #0077b5;
+}
+
+.social-icon.instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.social-icon svg {
+    fill: white;
+    width: 24px;
+    height: 24px;
 }

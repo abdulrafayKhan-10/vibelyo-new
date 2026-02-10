@@ -2,6 +2,13 @@
 title: "Online Earning"
 description: "Learn legitimate ways to make money online. Discover passive income strategies, active earning opportunities, and proven methods for building online income streams."
 keywords: "online earning, make money online, passive income, online income, work from home, earn money online"
+faqs:
+  - question: "What are legitimate ways to earn online?"
+    answer: "Freelancing, blogging, affiliate marketing, and creating digital products are proven, legitimate methods."
+  - question: "How fast can I get paid?"
+    answer: "It depends. Freelancing can pay within weeks; blogging might take months to build traffic. Patience is key."
+  - question: "How do I avoid scams?"
+    answer: "Never pay to work. Avoid 'get rich quick' schemes. Stick to reputable platforms like Upwork or verified ad networks."
 ---
 
 # Online Earning

@@ -1,60 +1,114 @@
 {{ define "main" }}
 <div class="list-page">
-    <div class="container">
-        <!-- Page Header - Improved -->
-        <header class="page-header">
+    <!-- Page Header - Improved (Category rounded style) -->
+    <header class="page-header category-banner">
+        <div class="container">
             <h1>{{ .Title }}</h1>
             {{ if .Description }}
             <p class="page-description">{{ .Description }}</p>
             {{ end }}
-        </header>
-
-        <!-- Posts List -->
-        <div class="posts-list">
-            {{ $paginator := .Paginate (where .Pages "Type" "!=" "page") }}
-            {{ range $paginator.Pages }}
-            <article class="post-summary">
-                <div class="post-summary-content">
-                    <div class="post-summary-header">
-                        <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-                        <div class="post-meta">
-                            <time datetime="{{ .Date.Format "2006-01-02" }}">
-                                {{ .Date.Format "January 2, 2006" }}
-                            </time>
-                            {{ if .Params.showReadingTime }}
-                            <span class="reading-time">{{ .ReadingTime }} min read</span>
-                            {{ end }}
-                        </div>
-                    </div>
-
-                    <p class="post-excerpt">
-                        {{ if .Description }}
-                        {{ .Description }}
-                        {{ else }}
-                        {{ .Summary | truncate 200 }}
-                        {{ end }}
-                    </p>
-
-                    <a href="{{ .Permalink }}" class="read-more-btn">Read Full Article</a>
-                </div>
-            </article>
-            {{ end }}
         </div>
+    </header>
 
-        <!-- Pagination -->
-        {{ if gt $paginator.TotalPages 1 }}
-        <nav class="pagination">
-            {{ if $paginator.HasPrev }}
-            <a href="{{ $paginator.Prev.URL }}" class="pagination-link">← Previous</a>
-            {{ end }}
+    <div class="container">
+        <!-- Category Layout Grid -->
+        <div class="category-layout">
+            <main class="category-content">
 
-            <span class="pagination-info">Page {{ $paginator.PageNumber }} of {{ $paginator.TotalPages }}</span>
+                <!-- Posts Grid (2 Columns) -->
+                <div class="posts-grid-category animate-on-scroll">
+                    {{ $paginator := .Paginate (where .Pages "Type" "!=" "page") }}
+                    {{ range $paginator.Pages }}
+                    <article class="post-summary-card">
+                        <a href="{{ .Permalink }}" class="post-link-wrapper">
+                            <div class="post-summary-content">
+                                <h2>{{ .Title }}</h2>
+                                <div class="post-meta">
+                                    <time datetime="{{ .Date.Format " 2006-01-02" }}">
+                                        {{ .Date.Format "Jan 2, 2006" }}
+                                    </time>
+                                    {{ if .Params.showReadingTime }}
+                                    <span class="dot">•</span>
+                                    <span class="reading-time">{{ .ReadingTime }} min read</span>
+                                    {{ end }}
+                                </div>
+                                <p class="post-excerpt">
+                                    {{ if .Description }}
+                                    {{ .Description | truncate 120 }}
+                                    {{ else }}
+                                    {{ .Summary | truncate 120 }}
+                                    {{ end }}
+                                </p>
+                                <span class="read-more-text">Read Article →</span>
+                            </div>
+                        </a>
+                    </article>
+                    {{ end }}
+                </div>
 
-            {{ if $paginator.HasNext }}
-            <a href="{{ $paginator.Next.URL }}" class="pagination-link">Next →</a>
-            {{ end }}
-        </nav>
-        {{ end }}
+                <!-- Pagination -->
+                {{ if gt $paginator.TotalPages 1 }}
+                <nav class="pagination">
+                    {{ if $paginator.HasPrev }}
+                    <a href="{{ $paginator.Prev.URL }}" class="pagination-link">← Previous</a>
+                    {{ end }}
+
+                    <span class="pagination-info">Page {{ $paginator.PageNumber }} of {{ $paginator.TotalPages }}</span>
+
+                    {{ if $paginator.HasNext }}
+                    <a href="{{ $paginator.Next.URL }}" class="pagination-link">Next →</a>
+                    {{ end }}
+                </nav>
+                {{ end }}
+            </main>
+
+            <!-- Sidebar -->
+            <aside class="category-sidebar animate-on-scroll">
+
+                <!-- Popular Articles Widget -->
+                <div class="sidebar-widget popular-widget">
+                    <h3>Popular Articles</h3>
+                    <div class="sidebar-posts-list">
+                        {{ range first 5 (where .Pages "Params.featured" true) }}
+                        <article class="sidebar-post">
+                            <a href="{{ .Permalink }}">
+                                <h4>{{ .Title }}</h4>
+                                <span class="sidebar-date">{{ .Date.Format "Jan 2, 2006" }}</span>
+                            </a>
+                        </article>
+                        {{ else }}
+                        <!-- Fallback -->
+                        {{ range first 5 .Pages }}
+                        <article class="sidebar-post">
+                            <a href="{{ .Permalink }}">
+                                <h4>{{ .Title }}</h4>
+                                <span class="sidebar-date">{{ .Date.Format "Jan 2, 2006" }}</span>
+                            </a>
+                        </article>
+                        {{ end }}
+                        {{ end }}
+                    </div>
+                </div>
+
+                <!-- FAQ Widget -->
+                {{ if .Params.faqs }}
+                <div class="sidebar-widget faq-widget">
+                    <h3>Frequent Questions</h3>
+                    <div class="faq-list-sidebar">
+                        {{ range .Params.faqs }}
+                        <details class="faq-item-sidebar">
+                            <summary>{{ .question }}</summary>
+                            <div class="faq-answer-sidebar">
+                                <p>{{ .answer }}</p>
+                            </div>
+                        </details>
+                        {{ end }}
+                    </div>
+                </div>
+                {{ end }}
+
+            </aside>
+        </div>
     </div>
 </div>
 {{ end }}
