@@ -1,16 +1,48 @@
 {{ define "main" }}
 <div class="homepage">
-    <!-- Hero Section - Enhanced Modern Design -->
+    <!-- Hero Section - Two Column Design -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>{{ .Title }}</h1>
-                <div class="hero-text">
-                    {{ .Content }}
+
+                <!-- Left: headline + CTAs + stats -->
+                <div class="hero-left">
+                    <div class="hero-badge">🔥 New guides every week</div>
+                    <h1>Learn Skills.<br>Build Income.<br><span class="accent">Work on Your Terms.</span></h1>
+                    <p class="hero-sub">Practical, beginner-friendly guides on freelancing, blogging, AI tools, and online earning. No fluff — just strategies that actually work.</p>
+                    <div class="hero-cta">
+                        <a href="#categories" class="btn-primary">Explore Topics ↓</a>
+                        <a href="/blogging/" class="btn-secondary">Start a Blog →</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-num">{{ len .Site.RegularPages }}</span>
+                            <span class="stat-label">Guides</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-num">5</span>
+                            <span class="stat-label">Categories</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-num">Free</span>
+                            <span class="stat-label">Always</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="hero-cta">
-                    <a href="#categories" class="read-more-btn">Start Learning ↓</a>
+
+                <!-- Right: floating latest-posts card -->
+                <div class="hero-right">
+                    <div class="hero-card">
+                        <div class="hero-card-header">📚 Latest Guides</div>
+                        {{ range first 4 .Site.RegularPages }}
+                        <a href="{{ .Permalink }}" class="hero-card-item">
+                            <span class="hero-card-cat">{{ .Section | humanize }}</span>
+                            <span class="hero-card-title">{{ .Title }}</span>
+                        </a>
+                        {{ end }}
+                    </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -113,36 +145,46 @@
             <div class="featured-wrapper">
                 <button class="scroll-btn left" aria-label="Scroll left" onclick="scrollTools('left')">←</button>
                 <div class="featured-carousel" id="toolsCarousel">
-                    <div class="tool-card">
+                    <a href="https://chat.openai.com" target="_blank" rel="noopener" class="tool-card">
                         <div class="tool-icon">🤖</div>
                         <h4>ChatGPT</h4>
                         <p>AI Writing</p>
-                    </div>
-                    <div class="tool-card">
+                    </a>
+                    <a href="https://www.canva.com" target="_blank" rel="noopener" class="tool-card">
                         <div class="tool-icon">🎨</div>
                         <h4>Canva</h4>
                         <p>Design</p>
-                    </div>
-                    <div class="tool-card">
+                    </a>
+                    <a href="https://www.upwork.com" target="_blank" rel="noopener" class="tool-card">
                         <div class="tool-icon">💼</div>
                         <h4>Upwork</h4>
                         <p>Freelancing</p>
-                    </div>
-                    <div class="tool-card">
+                    </a>
+                    <a href="https://www.fiverr.com" target="_blank" rel="noopener" class="tool-card">
+                        <div class="tool-icon">🎯</div>
+                        <h4>Fiverr</h4>
+                        <p>Sell Services</p>
+                    </a>
+                    <a href="https://www.notion.so" target="_blank" rel="noopener" class="tool-card">
                         <div class="tool-icon">📝</div>
                         <h4>Notion</h4>
                         <p>Planning</p>
-                    </div>
-                    <div class="tool-card">
+                    </a>
+                    <a href="https://www.semrush.com" target="_blank" rel="noopener" class="tool-card">
                         <div class="tool-icon">🔍</div>
                         <h4>Semrush</h4>
                         <p>SEO Tools</p>
-                    </div>
-                    <div class="tool-card">
+                    </a>
+                    <a href="https://convertkit.com" target="_blank" rel="noopener" class="tool-card">
                         <div class="tool-icon">📧</div>
                         <h4>ConvertKit</h4>
-                        <p>Email Marketing</p>
-                    </div>
+                        <p>Email List</p>
+                    </a>
+                    <a href="https://www.coursera.org" target="_blank" rel="noopener" class="tool-card">
+                        <div class="tool-icon">🎓</div>
+                        <h4>Coursera</h4>
+                        <p>Free Courses</p>
+                    </a>
                 </div>
                 <button class="scroll-btn right" aria-label="Scroll right" onclick="scrollTools('right')">→</button>
             </div>

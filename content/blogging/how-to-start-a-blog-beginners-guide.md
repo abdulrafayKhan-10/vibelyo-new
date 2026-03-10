@@ -3,6 +3,7 @@ title: "How to Start a Blog in 2026: Step-by-Step Guide for Beginners"
 description: "Complete guide to starting a successful blog. Learn how to choose a niche, set up your blog, create content, and start monetizing."
 date: 2026-02-05T09:00:00+05:00
 draft: false
+featured: true
 categories: ["blogging"]
 tags: ["start a blog", "blogging tips", "blog monetization", "content creation"]
 keywords: "how to start a blog, blogging for beginners, start blogging, blog setup, monetize blog"

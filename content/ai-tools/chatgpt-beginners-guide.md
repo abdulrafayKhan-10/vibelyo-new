@@ -3,6 +3,7 @@ title: "ChatGPT for Beginners: Complete Guide to Getting Started"
 description: "Learn how to use ChatGPT effectively. Discover practical applications, best practices, and tips to maximize your productivity with AI."
 date: 2026-02-07T11:00:00+05:00
 draft: false
+featured: true
 categories: ["ai-tools"]
 tags: ["ChatGPT", "AI tools", "artificial intelligence", "productivity"]
 keywords: "ChatGPT guide, how to use ChatGPT, AI tools, ChatGPT for beginners, AI productivity"

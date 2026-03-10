@@ -1,0 +1,70 @@
+{{/* Recommended Tools & Resources - renders per category */}}
+{{ $section := .Section }}
+{{ $tools := slice }}
+
+{{ if eq $section "online-earning" }}
+  {{ $tools = slice
+    (dict "name" "Upwork" "url" "https://www.upwork.com" "desc" "Find clients and start earning from your skills today" "icon" "💼")
+    (dict "name" "Fiverr" "url" "https://www.fiverr.com" "desc" "Offer any service starting from $5" "icon" "🎯")
+    (dict "name" "Gumroad" "url" "https://gumroad.com" "desc" "Sell digital products with zero upfront cost" "icon" "💰")
+    (dict "name" "Amazon Associates" "url" "https://affiliate-program.amazon.com" "desc" "Earn commissions promoting products you use" "icon" "📦")
+    (dict "name" "Canva" "url" "https://www.canva.com" "desc" "Create ebooks, templates and digital products to sell" "icon" "🎨")
+  }}
+{{ else if eq $section "freelancing" }}
+  {{ $tools = slice
+    (dict "name" "Upwork" "url" "https://www.upwork.com" "desc" "Largest freelance marketplace — best for long-term clients" "icon" "💼")
+    (dict "name" "Fiverr" "url" "https://www.fiverr.com" "desc" "Package your skills into gigs and get discovered" "icon" "🎯")
+    (dict "name" "LinkedIn" "url" "https://www.linkedin.com" "desc" "Build your professional profile and attract inbound leads" "icon" "🔗")
+    (dict "name" "Canva" "url" "https://www.canva.com" "desc" "Design a standout portfolio and client proposals" "icon" "🎨")
+    (dict "name" "Notion" "url" "https://www.notion.so" "desc" "Track projects, contracts, and clients in one place" "icon" "📝")
+  }}
+{{ else if eq $section "blogging" }}
+  {{ $tools = slice
+    (dict "name" "Bluehost" "url" "https://www.bluehost.com" "desc" "Affordable WordPress hosting — perfect for new bloggers" "icon" "🌐")
+    (dict "name" "Canva" "url" "https://www.canva.com" "desc" "Create blog graphics, featured images and social posts" "icon" "🎨")
+    (dict "name" "Google Search Console" "url" "https://search.google.com/search-console" "desc" "Free tool to track your blog rankings and fix SEO issues" "icon" "🔍")
+    (dict "name" "ConvertKit" "url" "https://convertkit.com" "desc" "Grow and monetize your email list from day one" "icon" "📧")
+    (dict "name" "Semrush" "url" "https://www.semrush.com" "desc" "Keyword research and competitor analysis" "icon" "📊")
+  }}
+{{ else if eq $section "ai-tools" }}
+  {{ $tools = slice
+    (dict "name" "ChatGPT" "url" "https://chat.openai.com" "desc" "Most capable AI assistant — free tier available" "icon" "🤖")
+    (dict "name" "Gemini" "url" "https://gemini.google.com" "desc" "Google's AI — free with any Google account" "icon" "✨")
+    (dict "name" "Canva AI" "url" "https://www.canva.com" "desc" "AI-powered design, image generation, and writing" "icon" "🎨")
+    (dict "name" "Grammarly" "url" "https://www.grammarly.com" "desc" "AI writing assistant — free plan available" "icon" "✍️")
+    (dict "name" "Notion AI" "url" "https://www.notion.so" "desc" "Plan, write, and organise with built-in AI" "icon" "📝")
+  }}
+{{ else if eq $section "digital-skills" }}
+  {{ $tools = slice
+    (dict "name" "Google Digital Garage" "url" "https://learndigital.withgoogle.com" "desc" "Free certified courses from Google — great starting point" "icon" "🔖")
+    (dict "name" "Coursera" "url" "https://www.coursera.org" "desc" "University-level courses, many available free to audit" "icon" "🎓")
+    (dict "name" "Udemy" "url" "https://www.udemy.com" "desc" "Huge library of practical skill courses, often under $15" "icon" "📚")
+    (dict "name" "freeCodeCamp" "url" "https://www.freecodecamp.org" "desc" "Learn coding 100% free with hands-on projects" "icon" "💻")
+    (dict "name" "LinkedIn Learning" "url" "https://www.linkedin.com/learning" "desc" "Professional courses that show on your LinkedIn profile" "icon" "🔗")
+  }}
+{{ end }}
+
+{{ if $tools }}
+<div class="recommended-tools">
+    <div class="recommended-tools-header">
+        <span class="recommended-tools-icon">🛠️</span>
+        <div>
+            <h3>Recommended Tools &amp; Resources</h3>
+            <p>Vetted tools relevant to this guide — all have free tiers or trials.</p>
+        </div>
+    </div>
+    <div class="tools-grid-inline">
+        {{ range $tools }}
+        <a href="{{ .url }}" target="_blank" rel="noopener" class="tool-item">
+            <span class="tool-item-icon">{{ .icon }}</span>
+            <div class="tool-item-content">
+                <strong>{{ .name }}</strong>
+                <span>{{ .desc }}</span>
+            </div>
+            <span class="tool-item-arrow">→</span>
+        </a>
+        {{ end }}
+    </div>
+    <p class="affiliate-note">Some links may be affiliate links. We only recommend tools we genuinely find useful. There is no extra cost to you.</p>
+</div>
+{{ end }}

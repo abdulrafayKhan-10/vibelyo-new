@@ -16,7 +16,7 @@
                     {{ .Date.Format "January 2, 2006" }}
                 </time>
 
-                {{ if .Params.showReadingTime }}
+                {{ if or .Params.showReadingTime .Site.Params.showReadingTime }}
                 <span class="reading-time">{{ .ReadingTime }} min read</span>
                 {{ end }}
             </div>
@@ -26,6 +26,9 @@
         <div class="article-content">
             {{ .Content }}
         </div>
+
+        <!-- Recommended Tools -->
+        {{ partial "recommended-tools.html" . }}
 
         <!-- Tags -->
         {{ if .Params.tags }}

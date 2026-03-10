@@ -3,6 +3,7 @@ title: "Essential Digital Skills to Learn in 2026"
 description: "Discover the most in-demand digital skills that can boost your career and earning potential. Complete guide with learning resources."
 date: 2026-02-09T13:00:00+05:00
 draft: false
+featured: true
 categories: ["digital-skills"]
 tags: ["digital skills", "career development", "online learning", "tech skills"]
 keywords: "digital skills, tech skills to learn, online skills, career development, digital literacy"

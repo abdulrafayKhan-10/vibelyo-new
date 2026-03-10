@@ -3,6 +3,7 @@ title: "How to Start Freelancing: A Complete Beginner's Guide"
 description: "Learn how to start your freelance career from scratch. Step-by-step guide covering skills, platforms, pricing, and finding your first clients."
 date: 2026-02-03T14:00:00+05:00
 draft: false
+featured: true
 categories: ["freelancing"]
 tags: ["freelancing", "remote work", "freelance career", "side hustle"]
 keywords: "how to start freelancing, freelance for beginners, freelance career, find freelance clients"

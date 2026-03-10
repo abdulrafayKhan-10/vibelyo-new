@@ -3,6 +3,7 @@ title: "10 Legitimate Ways to Make Money Online in 2026"
 description: "Discover proven methods to earn money online, from freelancing to passive income streams. Learn realistic strategies that actually work."
 date: 2026-02-01T10:00:00+05:00
 draft: false
+featured: true
 categories: ["online-earning"]
 tags: ["make money online", "passive income", "side hustle", "online income"]
 keywords: "make money online, online earning, passive income, legitimate online income, work from home"
