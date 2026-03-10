@@ -10,6 +10,9 @@
     <meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
     <meta name="keywords" content="{{ if .Params.keywords }}{{ .Params.keywords }}{{ else }}{{ .Site.Params.keywords }}{{ end }}">
     <meta name="author" content="{{ .Site.Params.author }}">
+    {{ if .Site.Params.googleSiteVerification }}
+    <meta name="google-site-verification" content="{{ .Site.Params.googleSiteVerification }}">
+    {{ end }}
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
@@ -37,8 +40,41 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="/css/style.css">
     
-    <!-- Google AdSense - Replace with your AdSense code when approved -->
-    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script> -->
+    {{ if .Site.Params.adsensePublisherID }}
+    {{ if .Site.Params.adsenseAutoAdsEnabled }}
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ .Site.Params.adsensePublisherID }}" crossorigin="anonymous"></script>
+    {{ end }}
+    {{ end }}
+
+    {{ if .Site.Params.googleAnalyticsID }}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleAnalyticsID }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ .Site.Params.googleAnalyticsID }}', { 'anonymize_ip': true });
+    </script>
+    {{ end }}
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "{{ if .Site.Params.organizationType }}{{ .Site.Params.organizationType }}{{ else }}Organization{{ end }}",
+            "name": "{{ if .Site.Params.siteName }}{{ .Site.Params.siteName }}{{ else }}{{ .Site.Title }}{{ end }}",
+            "url": "{{ .Site.BaseURL }}",
+            "logo": "{{ if .Site.Params.logo }}{{ .Site.BaseURL }}{{ strings.TrimPrefix "/" .Site.Params.logo }}{{ end }}",
+            "sameAs": []
+        }
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "{{ .Site.Title }}",
+            "url": "{{ .Site.BaseURL }}"
+        }
+    </script>
 </head>
 <body>
     <!-- Header -->

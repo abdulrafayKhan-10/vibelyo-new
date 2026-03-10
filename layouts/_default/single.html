@@ -68,4 +68,54 @@
         </div>
     </div>
 </article>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": {{ .Title | jsonify }},
+    "description": {{ (or .Description .Summary .Site.Params.description) | plainify | jsonify }},
+    "author": {
+        "@type": "Person",
+        "name": {{ .Site.Params.author | jsonify }}
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": {{ (or .Site.Params.siteName .Site.Title) | jsonify }}
+    },
+    "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+    "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ .Permalink }}"
+    }
+}
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "{{ .Site.BaseURL }}"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": {{ .Section | humanize | jsonify }},
+            "item": "{{ .Site.BaseURL }}{{ .Section }}/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": {{ .Title | jsonify }},
+            "item": "{{ .Permalink }}"
+        }
+    ]
+}
+</script>
 {{ end }}

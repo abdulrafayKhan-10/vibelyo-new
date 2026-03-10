@@ -12,9 +12,20 @@ title = "Vibelyo - Learn Online Earning, Freelancing & Digital Skills"
   description = "Learn practical skills for online earning, freelancing, blogging, AI tools, and digital success. Beginner-friendly guides and tutorials."
   author = "Abdul Rafay Khan"
   keywords = "online earning, freelancing, blogging, AI tools, digital skills, make money online"
+  siteName = "Vibelyo"
+  organizationType = "Organization"
+  logo = "/icons/sparkles.svg"
   
   # Social media and contact
   email = "rafaykhan.biz@gmail.com"
+
+  # Verification and analytics (set real values before enabling)
+  googleSiteVerification = ""
+  googleAnalyticsID = ""
+
+  # Ads (set your approved publisher ID)
+  adsensePublisherID = ""
+  adsenseAutoAdsEnabled = false
   
   # AdSense optimization
   showReadingTime = true

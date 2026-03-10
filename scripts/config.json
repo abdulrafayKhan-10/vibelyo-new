@@ -2,8 +2,42 @@
   "enabled": false,
   "ollama_api_url": "http://localhost:11434",
   "model": "llama3",
+
+  "_free_api_guide": {
+    "deepseek": "Sign up FREE at platform.deepseek.com — get free credits on signup, then $0.14/million tokens (cheapest in world)",
+    "groq": "Sign up FREE at console.groq.com — completely free tier, 14,400 requests/day with no credit card",
+    "qwen": "Sign up FREE at dashscope.aliyuncs.com — qwen-long model has a free quota tier"
+  },
+
+  "provider_fallback_order": [
+    "deepseek",
+    "groq",
+    "qwen"
+  ],
+  "providers": {
+    "deepseek": {
+      "base_url": "https://api.deepseek.com/v1",
+      "model": "deepseek-chat",
+      "api_key_env": "DEEPSEEK_API_KEY"
+    },
+    "groq": {
+      "base_url": "https://api.groq.com/openai/v1",
+      "model": "llama-3.3-70b-versatile",
+      "api_key_env": "GROQ_API_KEY"
+    },
+    "qwen": {
+      "base_url": "https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
+      "model": "qwen-long",
+      "api_key_env": "DASHSCOPE_API_KEY"
+    },
+    "ollama": {
+      "model": "llama3"
+    }
+  },
   "temperature": 0.7,
   "top_p": 0.9,
+  "min_words": 1200,
+  "max_words": 2200,
   "rate_limit_seconds": 30,
   "categories": [
     "online-earning",
