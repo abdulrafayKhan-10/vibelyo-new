@@ -1045,8 +1045,9 @@ a:hover {
     font-size: 1.75rem;
     margin-top: var(--spacing-2xl);
     margin-bottom: var(--spacing-md);
-    padding-top: var(--spacing-sm);
+    padding-top: var(--spacing-md);
     color: var(--text-color);
+    border-top: 2px solid var(--border-light);
 }
 
 .article-content h3 {
@@ -2191,14 +2192,23 @@ a.tool-card:hover h4 {
 }
 
 /* Left align content headings as requested */
+.page-content h1 {
+    font-size: 2rem;
+    margin-top: var(--spacing-2xl);
+    margin-bottom: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 2px solid var(--border-light);
+}
+
 .page-content h2 {
     font-size: 1.75rem;
-    margin-top: var(--spacing-xl);
+    margin-top: var(--spacing-2xl);
     margin-bottom: var(--spacing-md);
+    padding-top: var(--spacing-md);
     color: var(--text-color);
     text-align: left;
-    /* Left aligned, "Right" way */
     font-weight: 700;
+    border-top: 2px solid var(--border-light);
 }
 
 .page-content p {
