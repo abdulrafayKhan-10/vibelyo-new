@@ -64,15 +64,105 @@ After GSC verification:
    ```
 5. Commit and push
 
-### Step 5 — Set Up Social Media Profiles
+### Step 5 — Create Social Media Accounts
 
 Create accounts on these platforms with the username **vibelyo** (or closest available):
 
-- [ ] Twitter/X — share new posts, engage with niches
-- [ ] Pinterest — best for blogging/online earning content (drives real traffic)
-- [ ] LinkedIn — for digital skills and freelancing content
+- [ ] **Medium** — cross-post full articles automatically (free, great for reach + SEO backlinks)
+- [ ] **LinkedIn** — auto-share new posts (professionals, high engagement)
+- [ ] **Pinterest** — auto-pin new posts (best free traffic source for this niche)
+- [ ] **Twitter/X** — manual sharing (X API free tier is very limited for automation)
 
-Update the social links in `layouts/partials/footer.html` once created.
+Once created, update the social links in `layouts/partials/footer.html`.
+
+---
+
+## 1b. Social Media Automation (Auto-Post on Every Publish)
+
+**How it works:** Every time you push a new post to GitHub, the `social-post.yml` workflow automatically detects it and posts to your connected platforms. Zero manual work.
+
+### Platforms and how to connect them:
+
+---
+
+#### Medium (auto cross-post full articles)
+
+1. Sign up at [medium.com](https://medium.com) → log in
+2. Go to: **Settings** → **Security and apps** → **Integration tokens**
+3. Create a token with any name (e.g. "vibelyo-autopost")
+4. Add it as a GitHub Secret:
+
+| Secret Name | Value |
+|---|---|
+| `MEDIUM_TOKEN` | Your integration token |
+
+**Result:** Every new post is automatically cross-posted to Medium as a public article with a canonical link back to vibelyo.site (protects your SEO).
+
+---
+
+#### LinkedIn (auto share link posts)
+
+1. Create a LinkedIn app at [linkedin.com/developers](https://www.linkedin.com/developers/apps/new)
+   - App name: `Vibelyo Autopost`
+   - Make sure to add the `w_member_social` permission under **Products → Share on LinkedIn**
+2. Generate an **OAuth 2.0 access token** via the Auth tab (use the token generator)
+3. Find your **Person URN**: call `https://api.linkedin.com/v2/me` with your token — the `"id"` field is your Person URN
+4. Add these GitHub Secrets:
+
+| Secret Name | Value |
+|---|---|
+| `LINKEDIN_TOKEN` | Your OAuth access token |
+| `LINKEDIN_PERSON_URN` | Your Person ID (e.g. `abc123XYZ`) |
+
+**Result:** Every new post auto-shares on LinkedIn with title, description, hashtags, and a link.
+
+---
+
+#### Pinterest (auto-create pins)
+
+1. Create a Pinterest developer app at [developers.pinterest.com](https://developers.pinterest.com/apps/)
+2. Generate an access token with `boards:read`, `pins:write` scopes
+3. Find your Board ID: go to your board → the number in the URL is the board ID
+4. Add these GitHub Secrets:
+
+| Secret Name | Value |
+|---|---|
+| `PINTEREST_TOKEN` | Your access token |
+| `PINTEREST_BOARD_ID` | Your board ID (numbers only) |
+
+**Result:** Every new post auto-creates a pin on your board linking back to vibelyo.site.
+
+---
+
+#### Twitter/X (RSS-based — recommended approach)
+
+The X API free tier does not allow automated posting. Use **IFTTT** instead — it's free and requires no code:
+
+1. Sign up at [ifttt.com](https://ifttt.com)
+2. Create an applet: **RSS Feed → X (Twitter)**
+   - Trigger: RSS feed URL = `https://vibelyo.site/feed.xml`
+   - Action: Post a Tweet with title + link
+3. IFTTT checks the feed every hour and auto-tweets new posts
+
+---
+
+### How the automation works (technical overview)
+
+```
+You push new post to GitHub
+        ↓
+GitHub Actions detects new .md file in content/
+        ↓
+social-post.yml workflow runs
+        ↓
+social_post.py reads the post frontmatter (title, description, tags)
+        ↓
+Posts to: Medium (full article) + LinkedIn (link share) + Pinterest (pin)
+        ↓
+All done automatically — no manual sharing needed
+```
+
+The workflow only triggers on **newly added** posts (not edits), so updating an old post won't create duplicate social posts.
 
 ---
 

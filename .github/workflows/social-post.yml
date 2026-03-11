@@ -1,0 +1,87 @@
+name: Auto-Post to Social Media
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/**/*.md'
+
+permissions:
+  contents: read
+
+jobs:
+  social-post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect newly added posts
+        id: detect
+        run: |
+          NEW_FILES=$(git diff --name-only --diff-filter=A HEAD~1 HEAD -- 'content/**/*.md' | grep -v '_index.md' || true)
+          echo "new_files<<EOF" >> $GITHUB_OUTPUT
+          echo "$NEW_FILES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          if [ -z "$NEW_FILES" ]; then
+            echo "has_new=false" >> $GITHUB_OUTPUT
+            echo "No new posts detected."
+          else
+            echo "has_new=true" >> $GITHUB_OUTPUT
+            echo "New posts detected:"
+            echo "$NEW_FILES"
+          fi
+
+      - name: Set up Python
+        if: steps.detect.outputs.has_new == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        if: steps.detect.outputs.has_new == 'true'
+        run: pip install requests python-frontmatter
+
+      - name: Post to Medium
+        if: steps.detect.outputs.has_new == 'true'
+        env:
+          MEDIUM_TOKEN: ${{ secrets.MEDIUM_TOKEN }}
+          SITE_URL: https://vibelyo.site
+          NEW_FILES: ${{ steps.detect.outputs.new_files }}
+        run: |
+          if [ -n "$MEDIUM_TOKEN" ]; then
+            python scripts/social_post.py medium
+          else
+            echo "MEDIUM_TOKEN not configured — skipping Medium"
+          fi
+
+      - name: Post to LinkedIn
+        if: steps.detect.outputs.has_new == 'true'
+        env:
+          LINKEDIN_TOKEN: ${{ secrets.LINKEDIN_TOKEN }}
+          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+          SITE_URL: https://vibelyo.site
+          NEW_FILES: ${{ steps.detect.outputs.new_files }}
+        run: |
+          if [ -n "$LINKEDIN_TOKEN" ] && [ -n "$LINKEDIN_PERSON_URN" ]; then
+            python scripts/social_post.py linkedin
+          else
+            echo "LinkedIn credentials not configured — skipping LinkedIn"
+          fi
+
+      - name: Post to Pinterest
+        if: steps.detect.outputs.has_new == 'true'
+        env:
+          PINTEREST_TOKEN: ${{ secrets.PINTEREST_TOKEN }}
+          PINTEREST_BOARD_ID: ${{ secrets.PINTEREST_BOARD_ID }}
+          SITE_URL: https://vibelyo.site
+          NEW_FILES: ${{ steps.detect.outputs.new_files }}
+        run: |
+          if [ -n "$PINTEREST_TOKEN" ] && [ -n "$PINTEREST_BOARD_ID" ]; then
+            python scripts/social_post.py pinterest
+          else
+            echo "Pinterest credentials not configured — skipping Pinterest"
+          fi
