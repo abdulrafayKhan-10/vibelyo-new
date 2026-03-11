@@ -58,18 +58,20 @@ jobs:
             echo "MEDIUM_TOKEN not configured — skipping Medium"
           fi
 
-      - name: Post to LinkedIn
+      - name: Post to X (Twitter)
         if: steps.detect.outputs.has_new == 'true'
         env:
-          LINKEDIN_TOKEN: ${{ secrets.LINKEDIN_TOKEN }}
-          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
           SITE_URL: https://vibelyo.site
           NEW_FILES: ${{ steps.detect.outputs.new_files }}
         run: |
-          if [ -n "$LINKEDIN_TOKEN" ] && [ -n "$LINKEDIN_PERSON_URN" ]; then
-            python scripts/social_post.py linkedin
+          if [ -n "$X_API_KEY" ] && [ -n "$X_ACCESS_TOKEN" ]; then
+            python scripts/social_post.py x
           else
-            echo "LinkedIn credentials not configured — skipping LinkedIn"
+            echo "X credentials not configured — skipping X"
           fi
 
       - name: Post to Pinterest

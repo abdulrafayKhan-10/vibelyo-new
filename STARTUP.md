@@ -69,7 +69,7 @@ After GSC verification:
 Create accounts on these platforms with the username **vibelyo** (or closest available):
 
 - [ ] **Medium** — cross-post full articles automatically (free, great for reach + SEO backlinks)
-- [ ] **LinkedIn** — auto-share new posts (professionals, high engagement)
+- [ ] **X (Twitter)** — auto-tweet new posts
 - [ ] **Pinterest** — auto-pin new posts (best free traffic source for this niche)
 - [ ] **Twitter/X** — manual sharing (X API free tier is very limited for automation)
 
@@ -100,21 +100,24 @@ Once created, update the social links in `layouts/partials/footer.html`.
 
 ---
 
-#### LinkedIn (auto share link posts)
+#### X / Twitter (auto-tweet new posts)
 
-1. Create a LinkedIn app at [linkedin.com/developers](https://www.linkedin.com/developers/apps/new)
-   - App name: `Vibelyo Autopost`
-   - Make sure to add the `w_member_social` permission under **Products → Share on LinkedIn**
-2. Generate an **OAuth 2.0 access token** via the Auth tab (use the token generator)
-3. Find your **Person URN**: call `https://api.linkedin.com/v2/me` with your token — the `"id"` field is your Person URN
-4. Add these GitHub Secrets:
+1. Go to [developer.x.com](https://developer.x.com) → Sign in → **Create an app** (free tier is enough)
+2. In your app settings → **Keys and Tokens**:
+   - Copy **API Key** and **API Key Secret**
+   - Generate **Access Token** and **Access Token Secret** (must have Read + Write permissions)
+3. Add these GitHub Secrets:
 
 | Secret Name | Value |
 |---|---|
-| `LINKEDIN_TOKEN` | Your OAuth access token |
-| `LINKEDIN_PERSON_URN` | Your Person ID (e.g. `abc123XYZ`) |
+| `X_API_KEY` | Your API Key |
+| `X_API_SECRET` | Your API Key Secret |
+| `X_ACCESS_TOKEN` | Your Access Token |
+| `X_ACCESS_SECRET` | Your Access Token Secret |
 
-**Result:** Every new post auto-shares on LinkedIn with title, description, hashtags, and a link.
+> **Important:** In your app settings → **App permissions**, make sure it is set to **Read and Write** (not Read only). If you change this, regenerate your Access Token.
+
+**Result:** Every new post auto-tweets: title + hashtags + link.
 
 ---
 
@@ -134,15 +137,15 @@ Once created, update the social links in `layouts/partials/footer.html`.
 
 ---
 
-#### Twitter/X (RSS-based — recommended approach)
+#### Medium (RSS-based fallback — optional)
 
-The X API free tier does not allow automated posting. Use **IFTTT** instead — it's free and requires no code:
+If you don't want to set up Medium API tokens, you can also use **IFTTT** for cross-posting:
 
 1. Sign up at [ifttt.com](https://ifttt.com)
-2. Create an applet: **RSS Feed → X (Twitter)**
+2. Create an applet: **RSS Feed → Medium**
    - Trigger: RSS feed URL = `https://vibelyo.site/feed.xml`
-   - Action: Post a Tweet with title + link
-3. IFTTT checks the feed every hour and auto-tweets new posts
+   - Action: Create a Medium story
+3. IFTTT checks the feed every hour automatically
 
 ---
 
@@ -157,7 +160,7 @@ social-post.yml workflow runs
         ↓
 social_post.py reads the post frontmatter (title, description, tags)
         ↓
-Posts to: Medium (full article) + LinkedIn (link share) + Pinterest (pin)
+Posts to: Medium (full article) + X/Twitter (tweet) + Pinterest (pin)
         ↓
 All done automatically — no manual sharing needed
 ```

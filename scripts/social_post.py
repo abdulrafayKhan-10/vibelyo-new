@@ -96,15 +96,19 @@ def post_to_medium(filepath: str) -> None:
 
 
 # ---------------------------------------------------------------------------
-# LinkedIn
+# X (Twitter)
 # ---------------------------------------------------------------------------
 
-def post_to_linkedin(filepath: str) -> None:
-    token = os.environ.get("LINKEDIN_TOKEN", "")
-    person_urn = os.environ.get("LINKEDIN_PERSON_URN", "")
+def post_to_x(filepath: str) -> None:
+    import tweepy
 
-    if not token or not person_urn:
-        print("  LinkedIn credentials missing — skipped")
+    api_key = os.environ.get("X_API_KEY", "")
+    api_secret = os.environ.get("X_API_SECRET", "")
+    access_token = os.environ.get("X_ACCESS_TOKEN", "")
+    access_secret = os.environ.get("X_ACCESS_SECRET", "")
+
+    if not all([api_key, api_secret, access_token, access_secret]):
+        print("  X credentials missing — skipped")
         return
 
     post = frontmatter.load(filepath)
@@ -113,60 +117,35 @@ def post_to_linkedin(filepath: str) -> None:
         return
 
     title = post.get("title", "Untitled")
-    description = post.get("description", "")
     tags = post.get("tags", [])
     url = get_post_url(filepath)
 
-    # Build hashtags from tags (remove spaces/hyphens, add #)
     hashtags = " ".join(
         f"#{t.replace(' ', '').replace('-', '').replace('_', '')}"
-        for t in tags[:5]
+        for t in tags[:3]  # Keep tweet concise
     )
 
-    commentary = (
-        f"📝 New post on Vibelyo: {title}\n\n"
-        f"{description}\n\n"
-        f"{hashtags}\n\n"
-        f"🔗 {url}"
+    # Build tweet — stay under 280 chars
+    base = f"New on Vibelyo: {title}\n\n{hashtags}\n\n{url}"
+    if len(base) > 280:
+        # Trim title if needed
+        max_title = 280 - len(f"New on Vibelyo: ...\n\n{hashtags}\n\n{url}")
+        title = title[:max_title] + "..."
+        base = f"New on Vibelyo: {title}\n\n{hashtags}\n\n{url}"
+
+    client = tweepy.Client(
+        consumer_key=api_key,
+        consumer_secret=api_secret,
+        access_token=access_token,
+        access_token_secret=access_secret,
     )
 
-    payload = {
-        "author": f"urn:li:person:{person_urn}",
-        "lifecycleState": "PUBLISHED",
-        "specificContent": {
-            "com.linkedin.ugc.ShareContent": {
-                "shareCommentary": {"text": commentary},
-                "shareMediaCategory": "ARTICLE",
-                "media": [
-                    {
-                        "status": "READY",
-                        "description": {"text": description},
-                        "originalUrl": url,
-                        "title": {"text": title},
-                    }
-                ],
-            }
-        },
-        "visibility": {
-            "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"
-        },
-    }
-
-    resp = requests.post(
-        "https://api.linkedin.com/v2/ugcPosts",
-        headers={
-            "Authorization": f"Bearer {token}",
-            "Content-Type": "application/json",
-            "X-Restli-Protocol-Version": "2.0.0",
-        },
-        json=payload,
-        timeout=15,
-    )
-
-    if resp.status_code in (200, 201):
-        print(f"  ✅ LinkedIn: post published")
-    else:
-        print(f"  ❌ LinkedIn error {resp.status_code}: {resp.text}")
+    try:
+        response = client.create_tweet(text=base)
+        tweet_id = response.data["id"]
+        print(f"  ✅ X: tweet posted — https://x.com/i/web/status/{tweet_id}")
+    except tweepy.TweepyException as exc:
+        print(f"  ❌ X error: {exc}")
 
 
 # ---------------------------------------------------------------------------
@@ -221,7 +200,7 @@ def post_to_pinterest(filepath: str) -> None:
 
 PLATFORM_MAP = {
     "medium": post_to_medium,
-    "linkedin": post_to_linkedin,
+    "x": post_to_x,
     "pinterest": post_to_pinterest,
 }
 
